@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import Login from '@/components/Login';
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -9,6 +10,9 @@ export default function Home() {
           Discord Clone
         </h1>
       </header>
+      <section className="w-full max-w-md">
+        <Login />
+      </section>
       <p className="text-xl text-center">
         This is a starter template for Next.js + Tailwind CSS + TypeScript.
       </p>

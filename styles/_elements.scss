@@ -1,0 +1,243 @@
+/** Apply styles to specific html tags */
+html, body {
+  // Allow font-sizes to be consistent for mobile landscape/portrait views
+  -webkit-text-size-adjust: 100%;
+  font-size: $em-base;
+  @include media(desktop down) {
+    font-size: font-size(base-medium);
+  }
+  @include media(mobile down) {
+    font-size: font-size(base-small);
+  }
+}
+
+body {
+  @include font-p400;
+  background: $default-background;
+  min-height: 100%;
+  line-height: 125%;
+  margin: 0;
+  width: 100%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+textarea,
+input,
+button {
+  &:before,
+  &:after {
+    content: normal;
+  }
+  text-transform: none;
+  text-shadow: none;
+  letter-spacing: normal;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+button {
+  color: inherit;
+  background: none;
+  &:hover {
+    cursor: pointer;
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+  &.not-clickable {
+    pointer-events: none;
+  }
+}
+
+h1 {
+  @include font-s700;
+  font-size: font-size(h1);
+  margin: 0 0 spacing(paragraph) 0;
+  line-height: 125%;
+}
+
+h2 {
+  @include font-s700;
+  font-size: font-size(h2);
+  margin: 0 0 spacing(paragraph) 0;
+  line-height: 125%;
+}
+
+h3 {
+  @include font-s700;
+  font-size: font-size(h3);
+  margin: 0 0 spacing(paragraph) 0;
+  line-height: 125%;
+}
+
+h4 {
+  @include font-s700;
+  font-size: font-size(h4);
+  margin: 0 0 spacing(paragraph) 0;
+  line-height: 125%;
+}
+
+h5 {
+  @include font-s700;
+  font-size: font-size(h5);
+  margin: 0 0 spacing(paragraph) 0;
+  line-height: 125%;
+}
+
+h6 {
+  @extend h5;
+}
+
+p {
+  @include font-p400;
+  margin: 0 0 spacing(paragraph) 0;
+}
+
+a {
+  @include font-p700;
+  color: $white;
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+strong {
+  @include font-p700;
+}
+
+ul {
+  list-style-type: none;
+}
+
+select {
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
+  background-image: url("data:image/svg+xml;utf8,<svg aria-hidden='true' style='transform: rotate(180deg) scale(0.37);color: rgba(255, 255, 255, 0.8);' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path fill='currentColor' d='M416 352c-8.188 0-16.38-3.125-22.62-9.375L224 173.3l-169.4 169.4c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25C432.4 348.9 424.2 352 416 352z'></path></svg>");
+  background-color: $input-background;
+  background-repeat: no-repeat;
+  background-position-x: calc(100% + 2px);
+  background-position-y: 0;
+  border-radius: rem(2);
+  border: $input-border;
+  font-size: 16px;
+  color: $input-color;
+  padding: rem(13) spacing(triple) rem(13) spacing(half);
+  min-height: 44px;
+  outline: none;
+  @include font-p400;
+  &:hover {
+    background-color: $input-hover-background;
+  }
+  &:focus {
+    border: $input-focus-border;
+  }
+}
+
+option {
+  color: $input-color;
+}

@@ -1,0 +1,131 @@
+.custom-input-container {
+  position: relative;
+  background: $input-background;
+  border-radius: rem(2);
+  border: $input-border;
+  transition: 0.2s border ease-in-out;
+  margin-bottom: spacing(paragraph);
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.disabled.editable {
+    cursor: pointer;
+  }
+
+  &.editable {
+    pointer-events: all;
+  }
+
+  &:hover {
+    border: $input-hover-border;
+  }
+
+  &:focus-within {
+    border: $input-focus-border;
+  }
+
+  &.invalid {
+    opacity: 1;
+    border: $input-invalid-border;
+  }
+}
+.input:focus~.label,
+.input.is-not-empty~.label {
+  font-size: font-size(label);
+  top: 0;
+  transform: initial;
+}
+
+.input:focus~.label.label.multiline,
+.input.is-not-empty~.label.label.multiline {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.input {
+  border: 0;
+  position: relative;
+  background: transparent;
+  padding: rem(13) spacing(half);
+  outline: none;
+  font-size: 16px; // >= 16 to avoid auto zoom iOS devices
+  color: $input-color;
+  width: 100%;
+  min-height: 44px;
+  z-index: z-index(page);
+  &.centered {
+    text-align: center;
+  }
+
+  &:focus::placeholder {
+    color: transparent;
+  }
+
+  &:focus {
+    border: 0;
+    background: transparent;
+  }
+
+  &.labeled:focus,
+  &.labeled:valid,
+  &.labeled:disabled,
+  &.labeled:read-only,
+  &.labeled:invalid {
+    top: rem(7);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:disabled.editable {
+    cursor: pointer;
+  }
+
+  &:-webkit-autofill {
+    -webkit-text-fill-color: $input-color;
+  }
+
+  &.autocomplete-hide:-webkit-autofill {
+    -webkit-text-fill-color: transparent;
+  }
+
+  &:-webkit-autofill::first-line {
+    font-size: inherit;
+  }
+}
+
+.copy-text {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  font-size: rem(12);
+  color: $light-green;
+}
+
+.icon {
+  align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  padding: 0 spacing(paragraph);
+
+  &:last-child {
+    padding-right: spacing(quarter);
+  }
+
+  path {
+    stroke: $input-color;
+  }
+
+  &.checkmark {
+    color: $light-green;
+  }
+
+  &.password:hover {
+    opacity: 0.8;
+  }
+}
