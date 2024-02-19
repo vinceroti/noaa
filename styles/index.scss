@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@/styles/tools/_mixins';
+@import '@/styles/tools/_functions';
+@import '@/styles/settings/_globals';
+@import '@/styles/settings/_colors';
+@import '@/styles/settings/_fonts';
+
+@import 'media-blender';
+
+@import '@/styles/_elements';
+@import '@/styles/generic/_generic';
+@import '@/styles/generic/_images';
+@import '@/styles/components/_buttons';
+@import '@/styles/components/_icons';
