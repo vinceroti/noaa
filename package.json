@@ -1,5 +1,5 @@
 {
-  "name": "discord-clone",
+  "name": "noaa-ski-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,11 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/material": "^5.15.14",
+    "@mui/material-nextjs": "^5.15.11",
     "media-blender": "^2.1.0",
     "next": "13.5.4",
     "react": "^18",
