@@ -4,9 +4,10 @@ import { config, library } from '@fortawesome/fontawesome-svg-core';
 import { far, faSnowflake } from '@fortawesome/free-regular-svg-icons';
 import {
 	faChevronCircleDown,
-	faCloudRain,
+	faDroplet,
 	faMagicWandSparkles,
 	fas,
+	faSpinner,
 	faThermometerHalf,
 	faWind,
 } from '@fortawesome/free-solid-svg-icons';
@@ -18,7 +19,8 @@ library.add(
 	far,
 	fas,
 	faThermometerHalf,
-	faCloudRain,
+	faDroplet,
+	faSpinner,
 	faMagicWandSparkles,
 	faWind,
 	faChevronCircleDown,

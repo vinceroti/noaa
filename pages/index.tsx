@@ -1,3 +1,4 @@
+import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { List, ListItem } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
@@ -6,7 +7,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Button from '@mui/material/Button';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Image from 'next/image';
-import React from 'react';
+import { useState } from 'react';
 
 import { MountainUrls } from '~/enums/Mountains';
 import type { IPeriod, IWeatherData } from '~/interfaces/IWeather';
@@ -24,9 +25,29 @@ export const getServerSideProps: GetServerSideProps = async () => {
 	return { props: { data } };
 };
 
+const chooseIcon = (item: IPeriod): [IconPrefix, IconName] => {
+	if (item.shortForecast.includes('Rain')) {
+		return ['fas', 'droplet'];
+	}
+	if (item.shortForecast.includes('Snow')) {
+		return ['fas', 'snowflake'];
+	}
+	return ['fas', 'cloud'];
+};
+
 export default function Home({
 	data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+	const [summary, setSummary] = useState<string>('');
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
+	const handleClick = async () => {
+		setIsLoading(true);
+		const summary = await bestDayToSki(data);
+		setSummary(summary);
+		setIsLoading(false);
+	};
+
 	const renderItem = (item: IPeriod) => (
 		<div>
 			<div className="flex">
@@ -55,7 +76,7 @@ export default function Home({
 				{item.probabilityOfPrecipitation &&
 					item.probabilityOfPrecipitation.value && (
 						<p className="mr-4">
-							<FontAwesomeIcon icon={['fas', 'cloud-rain']} /> Rain Probability:{' '}
+							<FontAwesomeIcon icon={chooseIcon(item)} /> Precipitation:{' '}
 							{item.probabilityOfPrecipitation.value}%
 						</p>
 					)}
@@ -110,14 +131,21 @@ export default function Home({
 
 	return (
 		<div className="flex items-center flex-wrap justify-center max-w-lg">
-			<Button variant="outlined" onClick={bestDayToSki(data)}>
+			<Button variant="outlined" onClick={handleClick} disabled={isLoading}>
 				<FontAwesomeIcon
-					icon={['fas', 'magic-wand-sparkles']}
-					className="mr-2"
+					icon={isLoading ? ['fas', 'spinner'] : ['fas', 'magic-wand-sparkles']}
+					className={`${isLoading ? 'animate-spin' : ''} mr-2`}
 				/>
 				Calculate The Best Day To Ski
 			</Button>
+
 			<div className="mt-4">{renderMountains()}</div>
+			{summary && (
+				<div className="mt-4">
+					<h4>Best Day Summary</h4>
+					<div dangerouslySetInnerHTML={{ __html: summary }} />
+				</div>
+			)}
 		</div>
 	);
 }
