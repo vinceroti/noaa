@@ -1,65 +1,123 @@
-import { List, ListItem, Typography } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { List, ListItem } from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Button from '@mui/material/Button';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Image from 'next/image';
 import React from 'react';
 
+import { MountainUrls } from '~/enums/Mountains';
 import type { IPeriod, IWeatherData } from '~/interfaces/IWeather';
+import { bestDayToSki } from '~/utils/ChatGPT';
 
-export const getServerSideProps = (async () => {
-	const response = await fetch(
-		'https://api.weather.gov/gridpoints/SEW/145,17/forecast',
+export const getServerSideProps: GetServerSideProps = async () => {
+	const data = await Promise.all(
+		MountainUrls.map(async ({ name, url }) => {
+			const response = await fetch(url);
+			const weatherData: IWeatherData = await response.json();
+			return { name, weatherData };
+		}),
 	);
-	const data: IWeatherData = await response.json();
+
 	return { props: { data } };
-}) satisfies GetServerSideProps<{ data?: IWeatherData }>;
+};
 
 export default function Home({
 	data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	const renderItem = (item: IPeriod) => (
-		<div className="bg-purple-200 p-5 my-2 mx-4">
-			<Typography variant="h6">{item.name}</Typography>
-			<Typography>
-				{new Date(item.startTime).toLocaleString()} -{' '}
-				{new Date(item.endTime).toLocaleString()}
-			</Typography>
-			<Image
-				className="w-12 h-12"
-				src={item.icon}
-				alt="weather icon"
-				width={100}
-				height={100}
-			/>
-			<Typography>
-				End Time: {new Date(item.endTime).toLocaleString()}
-			</Typography>
-			<Typography>
-				Temperature: {item.temperature}
-				{item.temperatureUnit}{' '}
-				{item.temperatureTrend ? `(${item.temperatureTrend})` : ''}
-			</Typography>
-			{item.probabilityOfPrecipitation &&
-				!item.probabilityOfPrecipitation.value && (
-					<Typography>
-						Chance of Precipitation: {item.probabilityOfPrecipitation.value}%
-					</Typography>
-				)}
-			<Typography>
-				Wind: {item.windSpeed} from the {item.windDirection}
-			</Typography>
-			<Typography>Forecast: {item.shortForecast}</Typography>
-			<Typography>Detailed Forecast: {item.detailedForecast}</Typography>
+		<div>
+			<div className="flex">
+				<Image
+					className="w-12 h-12"
+					src={item.icon}
+					alt="weather icon"
+					width={100}
+					height={100}
+				/>
+				<div className="flex flex-col justify-center ml-4">
+					<h6>{item.name}</h6>
+					<p>
+						{new Date(item.startTime).toLocaleTimeString()} -{' '}
+						{new Date(item.endTime).toLocaleTimeString()}
+					</p>
+				</div>
+			</div>
+			<div className="flex flex-wrap mb-1">
+				<p className="mr-4">
+					<FontAwesomeIcon icon={['fas', 'thermometer-half']} />{' '}
+					{item.temperature}
+					{item.temperatureUnit}{' '}
+					{item.temperatureTrend ? `(${item.temperatureTrend})` : ''}
+				</p>
+				{item.probabilityOfPrecipitation &&
+					item.probabilityOfPrecipitation.value && (
+						<p className="mr-4">
+							<FontAwesomeIcon icon={['fas', 'cloud-rain']} /> Rain Probability:{' '}
+							{item.probabilityOfPrecipitation.value}%
+						</p>
+					)}
+				<p>
+					<FontAwesomeIcon icon={['fas', 'wind']} className="mr-1" />
+					{item.windSpeed} from the {item.windDirection}
+				</p>
+			</div>
+			<p className="mb-0">{item.detailedForecast}</p>
 		</div>
 	);
 
-	const mapItems = () => {
-		return data?.properties.periods.map((item) => (
-			<ListItem key={item.number.toString()}>{renderItem(item)}</ListItem>
-		));
+	const mapItems = (weatherData: IWeatherData) => {
+		if (weatherData.properties?.periods) {
+			return weatherData.properties.periods.map((item) => (
+				<ListItem
+					key={item.number.toString()}
+					sx={{
+						borderBottom: '1px solid gray',
+						padding: '1rem 0.5rem',
+						'&:last-child': { borderBottom: 'none' },
+					}}
+				>
+					{renderItem(item)}
+				</ListItem>
+			));
+		}
+		return 'No data available';
 	};
+
+	const renderMountains = () => {
+		return data?.map(
+			({ name, weatherData }: { name: string; weatherData: IWeatherData }) => (
+				<Accordion key={name} className="w-full mb-4">
+					<AccordionSummary
+						expandIcon={<FontAwesomeIcon icon={['fas', 'chevron-down']} />}
+						id="panel-header"
+						aria-controls="panel-content"
+						className="p-4"
+					>
+						{name}
+					</AccordionSummary>
+					<AccordionDetails
+						sx={{ borderTop: '1px solid #000', background: '#f8f8f8' }}
+					>
+						<List>{mapItems(weatherData)}</List>
+					</AccordionDetails>
+				</Accordion>
+			),
+		);
+	};
+
 	return (
-		<div className="flex items-center justify-center bg-gray-200">
-			<List>{mapItems()}</List>
+		<div className="flex items-center flex-wrap justify-center max-w-lg">
+			<Button variant="outlined" onClick={bestDayToSki(data)}>
+				<FontAwesomeIcon
+					icon={['fas', 'magic-wand-sparkles']}
+					className="mr-2"
+				/>
+				Calculate The Best Day To Ski
+			</Button>
+			<div className="mt-4">{renderMountains()}</div>
 		</div>
 	);
 }
