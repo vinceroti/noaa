@@ -1,3 +1,5 @@
+import './index.scss';
+
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { List, ListItem } from '@mui/material';
@@ -133,7 +135,8 @@ export default function Home({
 	};
 
 	return (
-		<div className="flex items-center flex-wrap justify-center max-w-lg">
+		<div className="flex items-center flex-wrap justify-center max-w-lg scrim">
+			<div className="mt-4 mb-4">{renderMountains()}</div>
 			<Button variant="outlined" onClick={handleClick} disabled={isLoading}>
 				<FontAwesomeIcon
 					icon={isLoading ? ['fas', 'spinner'] : ['fas', 'magic-wand-sparkles']}
@@ -141,9 +144,14 @@ export default function Home({
 				/>
 				Calculate The Best Day To Ski
 			</Button>
-
-			<div className="mt-4">{renderMountains()}</div>
-			{summary && (
+			{isLoading && (
+				<FontAwesomeIcon
+					icon={isLoading ? ['fas', 'spinner'] : ['fas', 'magic-wand-sparkles']}
+					className={`${isLoading ? 'animate-spin w-full' : ''} mt-10`}
+					size="3x"
+				/>
+			)}
+			{summary && !isLoading && (
 				<div className="mt-4">
 					<h4>Best Day Summary</h4>
 					<div dangerouslySetInnerHTML={{ __html: summary }} />

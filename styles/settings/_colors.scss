@@ -1,4 +1,5 @@
 // Main Colors
+$light-blue: #4d90fe;
 $medium-blue: #007acc;
 $dark-blue: #02142B;
 $dark-blue-start: rgb(36, 92, 222);
@@ -17,7 +18,7 @@ $opaque-text-color-light: rgba(255, 255, 255, 0.8);
 $opaque-text-color-medium: rgba(255, 255, 255, 0.5);
 $text-color: $white;
 $medium-gray: #9CABB6;
-$default-background: linear-gradient(to bottom, $dark-blue-start, $dark-blue-end);
+$default-background: linear-gradient(to bottom, $dark-blue-start, $dark-blue-end 90%, lighten($dark-blue-end, 5%));
 
 // Divider Line
 $divider-line-background: $white;
