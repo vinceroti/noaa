@@ -2,7 +2,7 @@
 import React from 'react';
 
 const Footer = () => (
-  <footer className="text-center p-5 bg-gray-200">
+  <footer className="text-center p-5">
     <p className="mb-1">© {new Date().getFullYear()} Chungus Incorporated</p>
     <p>Empowering the world with Big Chungus energy!</p>
   </footer>

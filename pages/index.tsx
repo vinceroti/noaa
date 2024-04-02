@@ -11,7 +11,6 @@ import { useState } from 'react';
 
 import { MountainUrls } from '~/enums/Mountains';
 import type { IPeriod, IWeatherData } from '~/interfaces/IWeather';
-import { bestDayToSki } from '~/utils/ChatGPT';
 
 export const getServerSideProps: GetServerSideProps = async () => {
 	const data = await Promise.all(
@@ -43,8 +42,12 @@ export default function Home({
 
 	const handleClick = async () => {
 		setIsLoading(true);
-		const summary = await bestDayToSki(data);
-		setSummary(summary);
+		const summary = await fetch('/api/chatgpt', {
+			method: 'POST',
+			body: JSON.stringify(data),
+		});
+		const summaryText = await summary.json();
+		setSummary(summaryText);
 		setIsLoading(false);
 	};
 

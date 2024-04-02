@@ -3,7 +3,7 @@ export default function Header() {
 	const textShadow = '1px 3px 3px rgba(0, 0, 0, 0.5)';
 
 	return (
-		<header className="flex items-center justify-center p-5 bg-blue-400 text-white shadow-md">
+		<header className="flex items-center justify-center p-5 text-white">
 			<FontAwesomeIcon
 				icon={['far', 'snowflake']}
 				size="3x"
