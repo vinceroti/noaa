@@ -23,84 +23,110 @@ const chooseIcon = (item: IPeriod): [IconPrefix, IconName] => {
 	return ['fas', 'cloud'];
 };
 
-export default function ListMountains(props: Array<IProps>) {
-	const renderItem = (item: IPeriod) => (
-		<div>
-			<div className="flex">
-				<Image
-					className="w-12 h-12"
-					src={item.icon}
-					alt="weather icon"
-					width={100}
-					height={100}
-				/>
-				<div className="flex flex-col justify-center ml-4">
-					<h6>{item.name}</h6>
-					<p>
-						{new Date(item.startTime).toLocaleTimeString()} -{' '}
-						{new Date(item.endTime).toLocaleTimeString()}
-					</p>
-				</div>
-			</div>
-			<div className="flex flex-wrap mb-1">
+const weatherDetails = (item: IPeriod) => (
+	<div className="flex flex-wrap mb-1">
+		<p className="mr-4">
+			<FontAwesomeIcon icon={['fas', 'thermometer-half']} /> {item.temperature}
+			{item.temperatureUnit}{' '}
+			{item.temperatureTrend ? `(${item.temperatureTrend})` : ''}
+		</p>
+		{item.probabilityOfPrecipitation &&
+			item.probabilityOfPrecipitation.value && (
 				<p className="mr-4">
-					<FontAwesomeIcon icon={['fas', 'thermometer-half']} />{' '}
-					{item.temperature}
-					{item.temperatureUnit}{' '}
-					{item.temperatureTrend ? `(${item.temperatureTrend})` : ''}
+					<FontAwesomeIcon icon={chooseIcon(item)} /> Precipitation:{' '}
+					{item.probabilityOfPrecipitation.value}%
 				</p>
-				{item.probabilityOfPrecipitation &&
-					item.probabilityOfPrecipitation.value && (
-						<p className="mr-4">
-							<FontAwesomeIcon icon={chooseIcon(item)} /> Precipitation:{' '}
-							{item.probabilityOfPrecipitation.value}%
-						</p>
-					)}
-				<p>
-					<FontAwesomeIcon icon={['fas', 'wind']} className="mr-1" />
-					{item.windSpeed} from the {item.windDirection}
-				</p>
-			</div>
-			<p className="mb-0">{item.detailedForecast}</p>
+			)}
+		<p>
+			<FontAwesomeIcon icon={['fas', 'wind']} className="mr-1" />
+			{item.windSpeed} from the {item.windDirection}
+		</p>
+	</div>
+);
+
+const snowDetails = (item: IPeriod) => {
+	return (
+		<div className="ml-1">
+			<span className="mr-2">
+				<FontAwesomeIcon icon={['fas', 'thermometer-half']} />{' '}
+				{item.temperature}
+				{item.temperatureUnit}{' '}
+				{item.temperatureTrend ? `(${item.temperatureTrend})` : ''}
+			</span>
+			{item.probabilityOfPrecipitation &&
+				item.probabilityOfPrecipitation.value && (
+					<span className="mr-1">
+						<FontAwesomeIcon icon={chooseIcon(item)} />
+					</span>
+				)}
+			<span>{item.shortForecast}</span>
 		</div>
 	);
+};
 
-	const mapItems = (data: IWeatherData) => {
-		if (data.properties?.periods) {
-			return data.properties.periods.map((item) => (
-				<ListItem
-					key={item.number.toString()}
-					sx={{
-						borderBottom: '1px solid gray',
-						padding: '1rem 0.5rem',
-						'&:last-child': { borderBottom: 'none' },
-					}}
-				>
-					{renderItem(item)}
-				</ListItem>
-			));
-		}
-		return 'No data available';
-	};
+const getFirstDay = (data: IWeatherData) => {
+	if (data.properties?.periods) {
+		return snowDetails(data.properties.periods[0]);
+	}
+	return 'No data available';
+};
 
-	const renderMountains = () => {
-		return props?.map(({ name, weatherData }: IProps) => (
-			<Accordion key={name} className="w-full mb-4">
-				<AccordionSummary
-					expandIcon={<FontAwesomeIcon icon={['fas', 'chevron-down']} />}
-					id="panel-header"
-					aria-controls="panel-content"
-				>
-					{name}
-				</AccordionSummary>
-				<AccordionDetails
-					sx={{ borderTop: '1px solid #000', background: '#f8f8f8' }}
-				>
-					<List>{mapItems(weatherData)}</List>
-				</AccordionDetails>
-			</Accordion>
+const renderItem = (item: IPeriod) => (
+	<div>
+		<div className="flex">
+			<Image
+				className="w-12 h-12"
+				src={item.icon}
+				alt="weather icon"
+				width={100}
+				height={100}
+			/>
+			<div className="flex flex-col justify-center ml-4">
+				<h6>{item.name}</h6>
+				<p>
+					{new Date(item.startTime).toLocaleTimeString()} -{' '}
+					{new Date(item.endTime).toLocaleTimeString()}
+				</p>
+			</div>
+		</div>
+		{weatherDetails(item)}
+		<p className="mb-0">{item.detailedForecast}</p>
+	</div>
+);
+
+const mapItems = (data: IWeatherData) => {
+	if (data.properties?.periods) {
+		return data.properties.periods.map((item) => (
+			<ListItem
+				key={item.number.toString()}
+				sx={{
+					borderBottom: '1px solid gray',
+					padding: '1rem 0.5rem',
+					'&:last-child': { borderBottom: 'none' },
+				}}
+			>
+				{renderItem(item)}
+			</ListItem>
 		));
-	};
+	}
+	return 'No data available';
+};
 
-	return renderMountains();
+export default function ListMountains(props: Array<IProps>) {
+	return props?.map(({ name, weatherData }: IProps) => (
+		<Accordion key={name} className="w-full mb-4">
+			<AccordionSummary
+				expandIcon={<FontAwesomeIcon icon={['fas', 'chevron-down']} />}
+				id="panel-header"
+				aria-controls="panel-content"
+			>
+				{name} - {getFirstDay(weatherData)}
+			</AccordionSummary>
+			<AccordionDetails
+				sx={{ borderTop: '1px solid #000', background: '#f8f8f8' }}
+			>
+				<List>{mapItems(weatherData)}</List>
+			</AccordionDetails>
+		</Accordion>
+	));
 }
