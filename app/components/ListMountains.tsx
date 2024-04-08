@@ -1,4 +1,3 @@
-
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { List, ListItem } from '@mui/material';
@@ -10,8 +9,8 @@ import Image from 'next/image';
 import type { IPeriod, IWeatherData } from '~/interfaces/IWeather';
 
 interface IProps {
-  name: string;
-  weatherData: IWeatherData;
+	name: string;
+	weatherData: IWeatherData;
 }
 
 const chooseIcon = (item: IPeriod): [IconPrefix, IconName] => {
@@ -91,7 +90,6 @@ export default function ListMountains(props: Array<IProps>) {
 					expandIcon={<FontAwesomeIcon icon={['fas', 'chevron-down']} />}
 					id="panel-header"
 					aria-controls="panel-content"
-					className="p-4"
 				>
 					{name}
 				</AccordionSummary>

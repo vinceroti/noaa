@@ -4,7 +4,6 @@ export async function bestDayToSki(
 	weatherData: Array<{ name: string; weatherData: IWeatherData }>,
 	apiKey: string = '',
 ): Promise<string> {
-
 	// compile weather data, get detailed forecast only
 	const data = weatherData.map(({ name, weatherData }) => {
 		if (!weatherData.properties?.periods) {
@@ -44,7 +43,7 @@ export async function bestDayToSki(
 		});
 		const chatGptResponse = await res.json();
 		if (chatGptResponse.error) {
-			throw apiKey;
+			throw chatGptResponse.error;
 		}
 		const text = chatGptResponse.choices[0].message.content;
 		const html = text.replace(/```html/g, '').replace(/```/g, '');
