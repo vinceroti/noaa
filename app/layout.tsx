@@ -5,8 +5,8 @@ import './layout.scss';
 import { ThemeProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 
-import Footer from '~/components/footer';
-import Header from '~/components/header';
+import Footer from '@/app/components/Footer';
+import Header from '@/app/components/Header';
 
 import theme from './theme';
 
