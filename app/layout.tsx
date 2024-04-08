@@ -8,6 +8,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import Footer from '@/app/components/Footer';
 import Header from '@/app/components/Header';
 
+import SnowfallComponent from './components/snowfall';
 import theme from './theme';
 
 export default function RootLayout({
@@ -26,6 +27,7 @@ export default function RootLayout({
 				</ThemeProvider>
 			</AppRouterCacheProvider>
 			<Footer />
+			<SnowfallComponent />
 		</div>
 	);
 }
