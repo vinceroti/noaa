@@ -1,4 +1,4 @@
-enum Mountain {
+export enum Mountain {
 	CrystalMountain = 'Crystal Mountain',
 	SummitAtSnoqualmie = 'Summit at Snoqualmie',
 	MtBaker = 'Mt Baker',

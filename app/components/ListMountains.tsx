@@ -125,7 +125,7 @@ const mapItems = (data: IWeatherData) => {
 export default function ListMountains(props: Array<IProps>) {
 	return props?.length > 0 ? (
 		props.map(({ name, weatherData }: IProps) => (
-			<Accordion key={name} className="w-full mb-4">
+			<Accordion key={name} className="mb-4 w-full">
 				<AccordionSummary
 					expandIcon={<FontAwesomeIcon icon={['fas', 'chevron-down']} />}
 					id="panel-header"
