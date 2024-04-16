@@ -4,24 +4,24 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useState } from 'react';
 
-import { MountainUrls } from '~/enums/Mountains';
+import { MountainUrls, States } from '~/enums/Mountains';
 
-const States = Object.keys(MountainUrls);
+const StateKeys = Object.keys(MountainUrls) as States[];
 
 interface RegionsProps {
-	onRegionChange: (region: string[]) => void;
+	onRegionChange: (region: States) => void;
+	initialState: string;
 }
 
-const Regions = ({ onRegionChange }: RegionsProps) => {
-	const [region, setRegion] = useState<string[]>([]);
+const Regions = ({ onRegionChange, initialState }: RegionsProps) => {
+	const [region, setRegion] = useState<string>(initialState);
 
 	const handleChange = (event: SelectChangeEvent<typeof region>) => {
 		const {
 			target: { value },
 		} = event;
-		const newValue = typeof value === 'string' ? value.split(',') : value;
-		setRegion(newValue);
-		onRegionChange(newValue);
+		setRegion(value);
+		onRegionChange(value as States);
 	};
 
 	return (
@@ -46,12 +46,11 @@ const Regions = ({ onRegionChange }: RegionsProps) => {
 				label="region"
 				onChange={handleChange}
 				variant="filled"
-				multiple
 				sx={{
 					width: '100%',
 				}}
 			>
-				{States.map((state) => (
+				{StateKeys.map((state) => (
 					<MenuItem key={state} value={state}>
 						{state}
 					</MenuItem>
