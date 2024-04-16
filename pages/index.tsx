@@ -8,7 +8,7 @@ import BestDay from '~/components/BestDay';
 import ListMountains from '~/components/ListMountains';
 import Regions from '~/components/Regions';
 import Resorts from '~/components/Resorts';
-import { Mountains, MountainUrls, States } from '~/enums/Mountains';
+import { Mountain, MountainUrls, States } from '~/enums/Mountains';
 import { StorageKeys } from '~/enums/storageKeys';
 import type { IWeatherData } from '~/interfaces/IWeather';
 
@@ -42,12 +42,12 @@ export default function Home({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 	// global state store will solve this (but learning the old fansioned way for now)
 	const [region, setRegion] = useState<States>(savedRegion);
-	const [resorts, setResorts] = useState<Mountains[]>(savedResorts);
+	const [resorts, setResorts] = useState<Mountain[]>(savedResorts);
 	const [data, setData] = useState(ssrData);
 	const filteredData = useMemo(() => {
 		if (region.length === 0) return null;
 		return data.filter(
-			({ state, name }: { state: string; name: string }) =>
+			({ state, name }: { state: States; name: Mountain }) =>
 				region.includes(state) && resorts.includes(name),
 		);
 	}, [data, region, resorts]);
@@ -65,7 +65,7 @@ export default function Home({
 		setCookie(StorageKeys.Region, region);
 	};
 
-	const onResortsChange = (resorts: Mountains[]) => {
+	const onResortsChange = (resorts: Mountain[]) => {
 		setResorts(resorts);
 		setCookie(StorageKeys.Resorts, resorts);
 	};
