@@ -6,6 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Image from 'next/image';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import type { IPeriod, IWeatherData } from '@/interfaces/IWeather';
 
@@ -137,30 +138,39 @@ export default function ListMountains({ isLoading, data }: IProps) {
 				/>
 			)}
 
-			{!isLoading &&
-				!!data?.length &&
-				data.map(({ name, weatherData }) => (
-					<Accordion key={name} className="mb-4 w-full">
-						<AccordionSummary
-							expandIcon={<FontAwesomeIcon icon={['fas', 'chevron-down']} />}
-							id="panel-header"
-							aria-controls="panel-content"
-						>
-							<div className="flex items-center">
-								<strong className="mr-4 whitespace-nowrap">{name}</strong>{' '}
-								{getFirstDay(weatherData)}
-							</div>
-						</AccordionSummary>
-						<AccordionDetails
-							sx={{ borderTop: '1px solid #000', background: '#f8f8f8' }}
-						>
-							<List>{mapItems(weatherData)}</List>
-						</AccordionDetails>
-					</Accordion>
-				))}
+			{!isLoading && (
+				<TransitionGroup>
+					{data?.length > 0 &&
+						data.map(({ name, weatherData }) => (
+							<CSSTransition key={name} timeout={200} classNames="fadeHeight">
+								<Accordion className="mb-4 w-full">
+									<AccordionSummary
+										expandIcon={
+											<FontAwesomeIcon icon={['fas', 'chevron-down']} />
+										}
+										id="panel-header"
+										aria-controls="panel-content"
+									>
+										<div className="flex items-center">
+											<strong className="mr-4 whitespace-nowrap">{name}</strong>{' '}
+											{getFirstDay(weatherData)}
+										</div>
+									</AccordionSummary>
+									<AccordionDetails
+										sx={{ borderTop: '1px solid #000', background: '#f8f8f8' }}
+									>
+										<List>{mapItems(weatherData)}</List>
+									</AccordionDetails>
+								</Accordion>
+							</CSSTransition>
+						))}
 
-			{!isLoading && !data?.length && (
-				<h5 className="mb-10 mt-5">No mountains selected.</h5>
+					{data?.length === 0 && (
+						<CSSTransition timeout={200} classNames="fadeHeight">
+							<h5 className="mb-10 mt-5">No mountains selected.</h5>
+						</CSSTransition>
+					)}
+				</TransitionGroup>
 			)}
 		</div>
 	);
