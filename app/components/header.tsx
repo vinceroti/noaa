@@ -13,7 +13,7 @@ export default function Header() {
 				className="text-4xl text-center m-0 font-semibold"
 				style={{ textShadow }}
 			>
-				Washington Ski Tracker
+				NOAA Ski Tracker
 			</h1>
 		</header>
 	);

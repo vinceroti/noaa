@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import Footer from '@/app/components/Footer';
 import Header from '@/app/components/Header';
-import SnowfallComponent from '~/components/Snowfall';
+import SnowfallComponent from '@/app/components/Snowfall';
 import theme from '~/theme';
 
 export default function MyApp(props: AppProps) {

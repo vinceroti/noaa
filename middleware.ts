@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-import {bestDayToSki} from '~/utils/ChatGPT';
+import { bestDayToSki } from '~/utils/ChatGPT';
 export async function middleware(request: NextRequest) {
 	const url = new URL(request.url);
 

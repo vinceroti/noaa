@@ -1,9 +1,10 @@
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { List, ListItem } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import Image from 'next/image';
 
 import type { IPeriod, IWeatherData } from '~/interfaces/IWeather';
@@ -20,7 +21,19 @@ const chooseIcon = (item: IPeriod): [IconPrefix, IconName] => {
 	if (item.shortForecast.includes('Snow')) {
 		return ['fas', 'snowflake'];
 	}
-	return ['fas', 'cloud'];
+	if (item.shortForecast.includes('Sleet')) {
+		return ['fas', 'cloud-meatball'];
+	}
+	if (item.shortForecast.includes('Thunderstorm')) {
+		return ['fas', 'bolt'];
+	}
+	if (item.shortForecast.includes('Sun')) {
+		return ['fas', 'sun'];
+	}
+	if (item.shortForecast.includes('Cloud')) {
+		return ['fas', 'cloud'];
+	}
+	return ['fas', 'question'];
 };
 
 const weatherDetails = (item: IPeriod) => (
@@ -46,20 +59,17 @@ const weatherDetails = (item: IPeriod) => (
 
 const snowDetails = (item: IPeriod) => {
 	return (
-		<div className="ml-1">
-			<span className="mr-2">
+		<div className="ml-1 flex flex-wrap justify-center">
+			<span className="mr-4">
 				<FontAwesomeIcon icon={['fas', 'thermometer-half']} />{' '}
 				{item.temperature}
 				{item.temperatureUnit}{' '}
 				{item.temperatureTrend ? `(${item.temperatureTrend})` : ''}
 			</span>
-			{item.probabilityOfPrecipitation &&
-				item.probabilityOfPrecipitation.value && (
-					<span className="mr-1">
-						<FontAwesomeIcon icon={chooseIcon(item)} />
-					</span>
-				)}
-			<span>{item.shortForecast}</span>
+			<span>
+				<FontAwesomeIcon icon={chooseIcon(item)} className="mr-1" />
+				{item.shortForecast}
+			</span>
 		</div>
 	);
 };
@@ -113,20 +123,27 @@ const mapItems = (data: IWeatherData) => {
 };
 
 export default function ListMountains(props: Array<IProps>) {
-	return props?.map(({ name, weatherData }: IProps) => (
-		<Accordion key={name} className="w-full mb-4">
-			<AccordionSummary
-				expandIcon={<FontAwesomeIcon icon={['fas', 'chevron-down']} />}
-				id="panel-header"
-				aria-controls="panel-content"
-			>
-				{name} - {getFirstDay(weatherData)}
-			</AccordionSummary>
-			<AccordionDetails
-				sx={{ borderTop: '1px solid #000', background: '#f8f8f8' }}
-			>
-				<List>{mapItems(weatherData)}</List>
-			</AccordionDetails>
-		</Accordion>
-	));
+	return props?.length > 0 ? (
+		props.map(({ name, weatherData }: IProps) => (
+			<Accordion key={name} className="w-full mb-4">
+				<AccordionSummary
+					expandIcon={<FontAwesomeIcon icon={['fas', 'chevron-down']} />}
+					id="panel-header"
+					aria-controls="panel-content"
+				>
+					<div className="flex items-center">
+						<strong className="mr-4 whitespace-nowrap">{name}</strong>{' '}
+						{getFirstDay(weatherData)}
+					</div>
+				</AccordionSummary>
+				<AccordionDetails
+					sx={{ borderTop: '1px solid #000', background: '#f8f8f8' }}
+				>
+					<List>{mapItems(weatherData)}</List>
+				</AccordionDetails>
+			</Accordion>
+		))
+	) : (
+		<h5 className="mb-10 mt-5">No mountains selected.</h5>
+	);
 }
