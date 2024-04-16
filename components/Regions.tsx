@@ -3,7 +3,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-import { MountainUrls, States } from '~/enums/Mountains';
+import { MountainUrls } from '@/config/settings';
+import { States } from '@/config/enums/Mountains';
 
 const StateKeys = Object.keys(MountainUrls) as States[];
 

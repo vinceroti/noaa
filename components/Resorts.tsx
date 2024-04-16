@@ -6,7 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useMemo } from 'react';
 
-import { Mountain, MountainUrls, States } from '~/enums/Mountains';
+import { Mountain, States } from '@/config/enums/Mountains';
+import { MountainUrls } from '@/config/settings';
 
 interface ResortsProps {
 	onResortsChange: (resorts: Mountain[]) => void;

@@ -1,4 +1,4 @@
-import { IWeatherData } from '~/interfaces/IWeather';
+import { IWeatherData } from '@/interfaces/IWeather';
 
 export async function bestDayToSki(
 	weatherData: Array<{ name: string; weatherData: IWeatherData }>,

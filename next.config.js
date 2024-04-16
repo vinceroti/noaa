@@ -12,8 +12,5 @@ const nextConfig = {
 	images: {
 		domains: ['api.weather.gov'],
 	},
-	experimental: {
-		serverActions: true,
-	},
 };
 module.exports = nextConfig;

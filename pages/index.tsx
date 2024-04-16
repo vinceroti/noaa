@@ -4,13 +4,14 @@ import { getCookie, setCookie } from 'cookies-next';
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { useMemo, useState } from 'react';
 
-import BestDay from '~/components/BestDay';
-import ListMountains from '~/components/ListMountains';
-import Regions from '~/components/Regions';
-import Resorts from '~/components/Resorts';
-import { Mountain, MountainUrls, States } from '~/enums/Mountains';
-import { StorageKeys } from '~/enums/storageKeys';
-import type { IWeatherData } from '~/interfaces/IWeather';
+import BestDay from '@/components/BestDay';
+import ListMountains from '@/components/ListMountains';
+import Regions from '@/components/Regions';
+import Resorts from '@/components/Resorts';
+import { Mountain, States } from '@/config/enums/Mountains';
+import { StorageKeys } from '@/config/enums/storageKeys';
+import { MountainUrls } from '@/config/settings';
+import type { IWeatherData } from '@/interfaces/IWeather';
 
 const initialState = States.Washington;
 
@@ -44,6 +45,8 @@ export default function Home({
 	const [region, setRegion] = useState<States>(savedRegion);
 	const [resorts, setResorts] = useState<Mountain[]>(savedResorts);
 	const [data, setData] = useState(ssrData);
+	const [isLoading, setIsLoading] = useState(false);
+
 	const filteredData = useMemo(() => {
 		if (region.length === 0) return null;
 		return data.filter(
@@ -54,8 +57,10 @@ export default function Home({
 
 	const onRegionChange = (region: States) => {
 		const fetchData = async () => {
+			setIsLoading(true);
 			const newData = await getMountainData(region);
 			setData(newData);
+			setIsLoading(false);
 		};
 		setRegion(region);
 		fetchData();
@@ -76,7 +81,9 @@ export default function Home({
 				{Regions({ onRegionChange, region })}
 				{Resorts({ onResortsChange, resorts, region })}
 			</div>
-			<div className="mb-4">{ListMountains(filteredData)}</div>
+			<div className="mb-4">
+				{ListMountains({ data: filteredData, isLoading })}
+			</div>
 			<div className="mb-4">{BestDay(filteredData)}</div>
 		</div>
 	);

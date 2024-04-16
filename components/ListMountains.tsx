@@ -7,11 +7,15 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Image from 'next/image';
 
-import type { IPeriod, IWeatherData } from '~/interfaces/IWeather';
+import type { IPeriod, IWeatherData } from '@/interfaces/IWeather';
 
 interface IProps {
-	name: string;
-	weatherData: IWeatherData;
+	isLoading: boolean;
+	data: Array<{
+		name: string;
+		weatherData: IWeatherData;
+		isLoading: boolean;
+	}>;
 }
 
 const chooseIcon = (item: IPeriod): [IconPrefix, IconName] => {
@@ -122,28 +126,42 @@ const mapItems = (data: IWeatherData) => {
 	return 'No data available';
 };
 
-export default function ListMountains(props: Array<IProps>) {
-	return props?.length > 0 ? (
-		props.map(({ name, weatherData }: IProps) => (
-			<Accordion key={name} className="mb-4 w-full">
-				<AccordionSummary
-					expandIcon={<FontAwesomeIcon icon={['fas', 'chevron-down']} />}
-					id="panel-header"
-					aria-controls="panel-content"
-				>
-					<div className="flex items-center">
-						<strong className="mr-4 whitespace-nowrap">{name}</strong>{' '}
-						{getFirstDay(weatherData)}
-					</div>
-				</AccordionSummary>
-				<AccordionDetails
-					sx={{ borderTop: '1px solid #000', background: '#f8f8f8' }}
-				>
-					<List>{mapItems(weatherData)}</List>
-				</AccordionDetails>
-			</Accordion>
-		))
-	) : (
-		<h5 className="mb-10 mt-5">No mountains selected.</h5>
+export default function ListMountains({ isLoading, data }: IProps) {
+	return (
+		<div>
+			{isLoading && (
+				<FontAwesomeIcon
+					className="animate-spin w-full mb-5"
+					icon={['fas', 'spinner']}
+					size="3x"
+				/>
+			)}
+
+			{!isLoading &&
+				!!data?.length &&
+				data.map(({ name, weatherData }) => (
+					<Accordion key={name} className="mb-4 w-full">
+						<AccordionSummary
+							expandIcon={<FontAwesomeIcon icon={['fas', 'chevron-down']} />}
+							id="panel-header"
+							aria-controls="panel-content"
+						>
+							<div className="flex items-center">
+								<strong className="mr-4 whitespace-nowrap">{name}</strong>{' '}
+								{getFirstDay(weatherData)}
+							</div>
+						</AccordionSummary>
+						<AccordionDetails
+							sx={{ borderTop: '1px solid #000', background: '#f8f8f8' }}
+						>
+							<List>{mapItems(weatherData)}</List>
+						</AccordionDetails>
+					</Accordion>
+				))}
+
+			{!isLoading && !data?.length && (
+				<h5 className="mb-10 mt-5">No mountains selected.</h5>
+			)}
+		</div>
 	);
 }

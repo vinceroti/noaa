@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 
-import type { IWeatherData } from '~/interfaces/IWeather';
+import type { IWeatherData } from '@/interfaces/IWeather';
 
 interface IProps {
 	name: string;

@@ -9,9 +9,9 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import * as React from 'react';
 
-import SnowfallComponent from '@/app/components/Snowfall';
-import Footer from '~/components/Footer';
-import Header from '~/components/Header';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import SnowfallComponent from '@/components/Snowfall';
 import theme from '~/theme';
 
 export default function MyApp(props: AppProps) {
