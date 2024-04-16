@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 import type { IWeatherData } from '@/interfaces/IWeather';
 
@@ -14,7 +15,14 @@ export default function BestDay(props: Array<IProps>) {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const handleClick = async () => {
-		setIsLoading(true);
+		if (!summary) {
+			setIsLoading(true);
+		} else {
+			setSummary('');
+			setTimeout(() => setIsLoading(true), 200);
+			// The delay should be the same as the timeout prop of the CSSTransition
+		}
+
 		try {
 			const response = await fetch('/api/chatgpt', {
 				method: 'POST',
@@ -52,12 +60,17 @@ export default function BestDay(props: Array<IProps>) {
 				/>
 			)}
 
-			{summary && !isLoading && (
+			<CSSTransition
+				in={!!summary && !isLoading}
+				timeout={200}
+				classNames="fade"
+				unmountOnExit
+			>
 				<div className="mt-4">
 					<h4>Best Day Summary</h4>
 					<div dangerouslySetInnerHTML={{ __html: summary }} />
 				</div>
-			)}
+			</CSSTransition>
 		</div>
 	);
 }
