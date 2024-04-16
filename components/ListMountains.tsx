@@ -41,6 +41,19 @@ const chooseIcon = (item: IPeriod): [IconPrefix, IconName] => {
 	return ['fas', 'question'];
 };
 
+const extractSnowAccumulation = (forecast: string): string | null => {
+	const match = forecast.match(/New snow accumulation of (.+?) possible\./);
+	if (match) {
+		return match[1].replace(' to ', ' - ').replace(' inches', '');
+	}
+	return null;
+};
+
+const shortForecastSnow = (item: IPeriod) => {
+	const snowAccumulation = extractSnowAccumulation(item.detailedForecast);
+	return snowAccumulation ? snowAccumulation : item.shortForecast;
+};
+
 const weatherDetails = (item: IPeriod) => (
 	<div className="flex flex-wrap mb-1">
 		<p className="mr-4">
@@ -71,9 +84,9 @@ const snowDetails = (item: IPeriod) => {
 				{item.temperatureUnit}{' '}
 				{item.temperatureTrend ? `(${item.temperatureTrend})` : ''}
 			</span>
-			<span>
+			<span className="capitalize">
 				<FontAwesomeIcon icon={chooseIcon(item)} className="mr-1" />
-				{item.shortForecast}
+				{shortForecastSnow(item)}
 			</span>
 		</div>
 	);
@@ -151,8 +164,10 @@ export default function ListMountains({ isLoading, data }: IProps) {
 										id="panel-header"
 										aria-controls="panel-content"
 									>
-										<div className="flex items-center">
-											<strong className="mr-4 whitespace-nowrap">{name}</strong>{' '}
+										<div className="w-full">
+											<strong className="whitespace-nowrap mb-3 block">
+												{name}
+											</strong>
 											{getFirstDay(weatherData)}
 										</div>
 									</AccordionSummary>
