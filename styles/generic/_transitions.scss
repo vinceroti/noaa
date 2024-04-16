@@ -1,42 +1,42 @@
-.slideFade-enter {
+.slide-fade-enter {
   transform: translateX(10px);
   opacity: 0;
 }
 
-.slideFade-enter-active {
+.slide-fade-enter-active {
   transform: translateX(0);
   opacity: 1;
   transition: all .3s ease 0.2s;
 }
 
-.slideFade-exit {
+.slide-fade-exit {
   transform: translateX(0);
   opacity: 1;
 }
 
-.slideFade-exit-active {
+.slide-fade-exit-active {
   transform: translateX(10px);
   opacity: 0;
   transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 
-.fadeHeight-enter {
+.fade-height-enter {
   opacity: 0;
   max-height: 0;
 }
 
-.fadeHeight-enter-active {
+.fade-height-enter-active {
   opacity: 1;
   max-height: 100vh;
   transition: all 0.2s;
 }
 
-.fadeHeight-exit {
+.fade-height-exit {
   opacity: 1;
   max-height: 100vh;
 }
 
-.fadeHeight-exit-active {
+.fade-height-exit-active {
   opacity: 0;
   max-height: 0;
   transition: all 0.2s;

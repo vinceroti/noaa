@@ -142,7 +142,7 @@ export default function ListMountains({ isLoading, data }: IProps) {
 				<TransitionGroup>
 					{data?.length > 0 &&
 						data.map(({ name, weatherData }) => (
-							<CSSTransition key={name} timeout={200} classNames="fadeHeight">
+							<CSSTransition key={name} timeout={200} classNames="fade-height">
 								<Accordion className="mb-4 w-full">
 									<AccordionSummary
 										expandIcon={
@@ -166,7 +166,7 @@ export default function ListMountains({ isLoading, data }: IProps) {
 						))}
 
 					{data?.length === 0 && (
-						<CSSTransition timeout={200} classNames="fadeHeight">
+						<CSSTransition timeout={200} classNames="fade-height">
 							<h5 className="mb-10 mt-5">No mountains selected.</h5>
 						</CSSTransition>
 					)}
