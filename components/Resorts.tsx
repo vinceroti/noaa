@@ -1,3 +1,4 @@
+import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -58,6 +59,22 @@ const Resorts = ({ onResortsChange, region, resorts }: ResortsProps) => {
 					</MenuItem>
 				))}
 			</Select>
+			<div className="flex justify-center gap-2">
+				<Button
+					variant="text"
+					className="p-1"
+					onClick={() => onResortsChange(ResortKeys)}
+				>
+					Select All
+				</Button>
+				<Button
+					variant="text"
+					className="p-1"
+					onClick={() => onResortsChange([])}
+				>
+					Clear
+				</Button>
+			</div>
 		</FormControl>
 	);
 };

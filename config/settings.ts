@@ -47,7 +47,77 @@ export const MountainUrls = {
 	[States.Colorado]: [
 		{
 			name: Mountain.Vail,
-			url: 'https://api.weather.gov/gridpoints/GJT/34,116/forecast',
+			url: 'https://api.weather.gov/gridpoints/GJT/173,121/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.ArapahoeBasin,
+			url: 'https://api.weather.gov/gridpoints/BOU/22,53/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.Breckenridge,
+			url: 'https://api.weather.gov/gridpoints/BOU/22,53/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.CopperMountain,
+			url: 'https://api.weather.gov/gridpoints/BOU/22,53/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.Keystone,
+			url: 'https://api.weather.gov/gridpoints/BOU/22,53/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.Loveland,
+			url: 'https://api.weather.gov/gridpoints/BOU/22,53/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.WinterPark,
+			url: 'https://api.weather.gov/gridpoints/BOU/32,80/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.Steamboat,
+			url: 'https://api.weather.gov/gridpoints/GJT/161,159/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.AspenSnowmass,
+			url: 'https://api.weather.gov/gridpoints/GJT/156,102/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.Telluride,
+			url: 'https://api.weather.gov/gridpoints/GJT/113,50/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.CrestedButte,
+			url: 'https://api.weather.gov/gridpoints/GJT/150,88/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.Purgatory,
+			url: 'https://api.weather.gov/gridpoints/GJT/120,40/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.WolfCreek,
+			url: 'https://api.weather.gov/gridpoints/PUB/15,35/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.Silverton,
+			url: 'https://api.weather.gov/gridpoints/GJT/120,40/forecast',
+			state: States.Colorado,
+		},
+		{
+			name: Mountain.Powderhorn,
+			url: 'https://api.weather.gov/gridpoints/GJT/143,64/forecast',
 			state: States.Colorado,
 		},
 	],

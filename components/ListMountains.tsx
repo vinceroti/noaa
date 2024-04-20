@@ -38,6 +38,9 @@ const chooseIcon = (item: IPeriod): [IconPrefix, IconName] => {
 	if (item.shortForecast.includes('Cloud')) {
 		return ['fas', 'cloud'];
 	}
+	if (item.shortForecast.includes('Clear')) {
+		return ['fas', 'moon'];
+	}
 	return ['fas', 'question'];
 };
 

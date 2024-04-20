@@ -14,6 +14,9 @@ import { MountainUrls } from '@/config/settings';
 import type { IWeatherData } from '@/interfaces/IWeather';
 
 const initialState = States.Washington;
+const initialResorts: Mountain[] = Object.values(
+	MountainUrls[initialState],
+).map(({ name }) => name);
 
 const getMountainData = (state: States) => {
 	return Promise.all(
@@ -26,11 +29,17 @@ const getMountainData = (state: States) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-	const savedRegion =
+	let savedRegion =
 		(getCookie(StorageKeys.Region, { req, res }) as States) || initialState;
 
-	let savedResorts = getCookie(StorageKeys.Resorts, { req, res }) || '[]';
+	let savedResorts: Mountain[] | string =
+		getCookie(StorageKeys.Resorts, { req, res }) || '[]';
 	savedResorts = JSON.parse(savedResorts);
+
+	if (!savedResorts.length) {
+		savedResorts = initialResorts;
+		savedRegion = initialState;
+	}
 
 	const ssrData = await getMountainData(savedRegion);
 	return { props: { ssrData, savedRegion, savedResorts } };
@@ -77,7 +86,7 @@ export default function Home({
 
 	return (
 		<div className="max-w-lg scrim w-full">
-			<div className="mt-4 mb-4 flex gap-2">
+			<div className="mt-4 mb-4 flex gap-2 items-start">
 				{Regions({ onRegionChange, region })}
 				{Resorts({ onResortsChange, resorts, region })}
 			</div>

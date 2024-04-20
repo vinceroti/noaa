@@ -9,6 +9,20 @@ export enum Mountain {
 	Vail = 'Vail',
 	MammothMountain = 'Mammoth Mountain',
 	ParkCity = 'Park City',
+	ArapahoeBasin = 'Arapahoe Basin',
+	Breckenridge = 'Breckenridge',
+	CopperMountain = 'Copper Mountain',
+	Keystone = 'Keystone',
+	Loveland = 'Loveland',
+	WinterPark = 'Winter Park',
+	Steamboat = 'Steamboat',
+	AspenSnowmass = 'Aspen Snowmass',
+	Telluride = 'Telluride',
+	CrestedButte = 'Crested Butte',
+	Purgatory = 'Purgatory',
+	WolfCreek = 'Wolf Creek',
+	Silverton = 'Silverton',
+	Powderhorn = 'Powderhorn',
 }
 
 export enum States {
