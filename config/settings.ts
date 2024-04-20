@@ -26,7 +26,12 @@ export const MountainUrls = {
 	[States.Oregon]: [
 		{
 			name: Mountain.MtHood,
-			url: 'https://api.weather.gov/gridpoints/PQR/112,58/forecast',
+			url: 'https://api.weather.gov/gridpoints/PQR/142,89/forecast',
+			state: States.Oregon,
+		},
+		{
+			name: Mountain.MtBachelor,
+			url: 'https://api.weather.gov/gridpoints/PDT/30,54/forecast',
 			state: States.Oregon,
 		},
 	],

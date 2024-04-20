@@ -4,6 +4,7 @@ export enum Mountain {
 	MtBaker = 'Mt Baker',
 	StevensPass = 'Stevens Pass',
 	MtHood = 'Mt Hood',
+	MtBachelor = 'Mt Bachelor',
 	SunValley = 'Sun Valley',
 	BigSky = 'Big Sky',
 	Vail = 'Vail',
