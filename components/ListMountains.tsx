@@ -6,6 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Image from 'next/image';
+import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import type { IPeriod, IWeatherData } from '@/interfaces/IWeather';
@@ -157,31 +158,42 @@ export default function ListMountains({ isLoading, data }: IProps) {
 			{!isLoading && (
 				<TransitionGroup>
 					{data?.length > 0 &&
-						data.map(({ name, weatherData }) => (
-							<CSSTransition key={name} timeout={200} classNames="fade-height">
-								<Accordion className="mb-4 w-full">
-									<AccordionSummary
-										expandIcon={
-											<FontAwesomeIcon icon={['fas', 'chevron-down']} />
-										}
-										id="panel-header"
-										aria-controls="panel-content"
-									>
-										<div className="w-full">
-											<strong className="whitespace-nowrap mb-3 block">
-												{name}
-											</strong>
-											{getFirstDay(weatherData)}
-										</div>
-									</AccordionSummary>
-									<AccordionDetails
-										sx={{ borderTop: '1px solid #000', background: '#f8f8f8' }}
-									>
-										<List>{mapItems(weatherData)}</List>
-									</AccordionDetails>
-								</Accordion>
-							</CSSTransition>
-						))}
+						data.map(({ name, weatherData }) => {
+							const nodeRef = React.createRef<HTMLDivElement>();
+							return (
+								<CSSTransition
+									key={name}
+									nodeRef={nodeRef}
+									timeout={200}
+									classNames="fade-height"
+								>
+									<Accordion className="mb-4 w-full" ref={nodeRef}>
+										<AccordionSummary
+											expandIcon={
+												<FontAwesomeIcon icon={['fas', 'chevron-down']} />
+											}
+											id="panel-header"
+											aria-controls="panel-content"
+										>
+											<div className="w-full">
+												<strong className="whitespace-nowrap mb-3 block">
+													{name}
+												</strong>
+												{getFirstDay(weatherData)}
+											</div>
+										</AccordionSummary>
+										<AccordionDetails
+											sx={{
+												borderTop: '1px solid #000',
+												background: '#f8f8f8',
+											}}
+										>
+											<List>{mapItems(weatherData)}</List>
+										</AccordionDetails>
+									</Accordion>
+								</CSSTransition>
+							);
+						})}
 
 					{data?.length === 0 && (
 						<CSSTransition timeout={200} classNames="fade-height">
