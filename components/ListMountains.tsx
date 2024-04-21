@@ -6,7 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Image from 'next/image';
-import React from 'react';
+import { createRef } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import type { IPeriod, IWeatherData } from '@/interfaces/IWeather';
@@ -144,6 +144,7 @@ const mapItems = (data: IWeatherData) => {
 };
 
 export default function ListMountains({ isLoading, data }: IProps) {
+	const noMountainsRef = createRef<HTMLDivElement>();
 	return (
 		<div>
 			{isLoading && (
@@ -154,12 +155,11 @@ export default function ListMountains({ isLoading, data }: IProps) {
 				/>
 			)}
 
-			{!isLoading && (
+			{!isLoading && data && (
 				<TransitionGroup>
-					{data &&
-						data.length > 0 &&
+					{data.length > 0 &&
 						data.map(({ name, weatherData }) => {
-							const nodeRef = React.createRef<HTMLDivElement>();
+							const nodeRef = createRef<HTMLDivElement>();
 							return (
 								<CSSTransition
 									key={name}
@@ -167,37 +167,45 @@ export default function ListMountains({ isLoading, data }: IProps) {
 									timeout={200}
 									classNames="fade-height"
 								>
-									<Accordion className="mb-4 w-full" ref={nodeRef}>
-										<AccordionSummary
-											expandIcon={
-												<FontAwesomeIcon icon={['fas', 'chevron-down']} />
-											}
-											id="panel-header"
-											aria-controls="panel-content"
-										>
-											<div className="w-full">
-												<strong className="whitespace-nowrap mb-3 block">
-													{name}
-												</strong>
-												{getFirstDay(weatherData)}
-											</div>
-										</AccordionSummary>
-										<AccordionDetails
-											sx={{
-												borderTop: '1px solid #000',
-												background: '#f8f8f8',
-											}}
-										>
-											<List>{mapItems(weatherData)}</List>
-										</AccordionDetails>
-									</Accordion>
+									<div ref={nodeRef}>
+										<Accordion className="mb-4 w-full">
+											<AccordionSummary
+												expandIcon={
+													<FontAwesomeIcon icon={['fas', 'chevron-down']} />
+												}
+												id="panel-header"
+												aria-controls="panel-content"
+											>
+												<div className="w-full">
+													<strong className="whitespace-nowrap mb-3 block">
+														{name}
+													</strong>
+													{getFirstDay(weatherData)}
+												</div>
+											</AccordionSummary>
+											<AccordionDetails
+												sx={{
+													borderTop: '1px solid #000',
+													background: '#f8f8f8',
+												}}
+											>
+												<List>{mapItems(weatherData)}</List>
+											</AccordionDetails>
+										</Accordion>
+									</div>
 								</CSSTransition>
 							);
 						})}
 
 					{data?.length === 0 && (
-						<CSSTransition timeout={200} classNames="fade-height">
-							<h5 className="mb-10 mt-5">No mountains selected.</h5>
+						<CSSTransition
+							timeout={200}
+							classNames="fade-height"
+							nodeRef={noMountainsRef}
+						>
+							<h5 className="mb-10 mt-5" ref={noMountainsRef}>
+								No mountains selected.
+							</h5>
 						</CSSTransition>
 					)}
 				</TransitionGroup>

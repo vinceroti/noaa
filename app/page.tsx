@@ -1,6 +1,7 @@
 import '@/styles/pages/index.scss';
 
 import { getCookie } from 'cookies-next';
+import { cookies } from 'next/headers';
 
 import HomePage from '@/app/home-page';
 import { Mountain, States } from '@/config/enums/Mountains';
@@ -24,10 +25,12 @@ const getMountainData = (state: States) => {
 };
 
 const getData = async () => {
-	let savedRegion = (getCookie(StorageKeys.Region) as States) || initialState;
+	let savedRegion =
+		(getCookie(StorageKeys.Region, { cookies }) as States) || initialState;
 
-	const savedCookieResorts = getCookie(StorageKeys.Resorts) || '[]';
-	let savedResorts = JSON.parse(savedCookieResorts);
+	const savedResortsString =
+		getCookie(StorageKeys.Resorts, { cookies }) || '[]';
+	let savedResorts = JSON.parse(savedResortsString);
 
 	if (!savedResorts.length) {
 		savedResorts = initialResorts;
