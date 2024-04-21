@@ -7,7 +7,7 @@ import { CSSTransition } from 'react-transition-group';
 import type { IWeatherData } from '@/interfaces/IWeather';
 
 interface IProps {
-	data: Array<{ name: string; weatherData: IWeatherData }>;
+	data: Array<{ name: string; weatherData: IWeatherData }> | null;
 }
 
 export default function BestDay({ data }: IProps) {

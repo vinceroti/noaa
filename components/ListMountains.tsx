@@ -16,8 +16,7 @@ interface IProps {
 	data: Array<{
 		name: string;
 		weatherData: IWeatherData;
-		isLoading: boolean;
-	}>;
+	}> | null;
 }
 
 const chooseIcon = (item: IPeriod): [IconPrefix, IconName] => {
@@ -157,7 +156,8 @@ export default function ListMountains({ isLoading, data }: IProps) {
 
 			{!isLoading && (
 				<TransitionGroup>
-					{data?.length > 0 &&
+					{data &&
+						data.length > 0 &&
 						data.map(({ name, weatherData }) => {
 							const nodeRef = React.createRef<HTMLDivElement>();
 							return (
