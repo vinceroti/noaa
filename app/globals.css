@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Summit / Daylight */
+    --bg: linear-gradient(160deg, #dff0fd 0%, #c2dff5 45%, #d0eafb 100%);
+    --scroll-edge: #d0eafb;
+    --alpine-950: #020b16;
+    --alpine-900: #050d1a;
+    --alpine-800: #0a1628;
+    --alpine-700: #0f1f36;
+    --alpine-600: #152844;
+    --ice-300: #7dd3fc;
+    --ice-200: #bae6fd;
+    --ice-100: #e0f2fe;
+  }
+
+  :root.dark {
+    /* Storm Mode */
+    --bg: linear-gradient(160deg, #0a1828 0%, #0f2240 45%, #0c1c34 100%);
+    --scroll-edge: #0f2240;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--bg);
+    background-attachment: fixed;
+    color: #1a3050;
+    min-height: 100dvh;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :root.dark body {
+    color: #e8f1fb;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  /* --- Glass --- */
+  .glass {
+    background: rgba(255, 255, 255, 0.60);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .dark .glass {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+  }
+
+  .glass-hover {
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .glass-hover:hover {
+    background: rgba(255, 255, 255, 0.80);
+    border-color: rgba(14, 100, 180, 0.30);
+    transform: translateY(-1px);
+  }
+
+  .dark .glass-hover:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(125, 211, 252, 0.22);
+    transform: translateY(-1px);
+  }
+
+  /* --- Score badges (light) --- */
+  .score-epic {
+    color: #047857;
+    background: rgba(4, 120, 87, 0.10);
+    border-color: rgba(4, 120, 87, 0.25);
+  }
+
+  .score-great {
+    color: #0369a1;
+    background: rgba(3, 105, 161, 0.10);
+    border-color: rgba(3, 105, 161, 0.25);
+  }
+
+  .score-good {
+    color: #0e7490;
+    background: rgba(14, 116, 144, 0.10);
+    border-color: rgba(14, 116, 144, 0.22);
+  }
+
+  .score-fair {
+    color: #7c3aed;
+    background: rgba(124, 58, 237, 0.10);
+    border-color: rgba(124, 58, 237, 0.22);
+  }
+
+  .score-skip {
+    color: #dc2626;
+    background: rgba(220, 38, 38, 0.08);
+    border-color: rgba(220, 38, 38, 0.20);
+  }
+
+  /* --- Score badges (storm) --- */
+  .dark .score-epic {
+    color: #6ee7b7;
+    background: rgba(110, 231, 183, 0.12);
+    border-color: rgba(110, 231, 183, 0.25);
+  }
+
+  .dark .score-great {
+    color: #7dd3fc;
+    background: rgba(125, 211, 252, 0.12);
+    border-color: rgba(125, 211, 252, 0.25);
+  }
+
+  .dark .score-good {
+    color: #67e8f9;
+    background: rgba(103, 232, 249, 0.10);
+    border-color: rgba(103, 232, 249, 0.22);
+  }
+
+  .dark .score-fair {
+    color: #c084fc;
+    background: rgba(192, 132, 252, 0.12);
+    border-color: rgba(192, 132, 252, 0.22);
+  }
+
+  .dark .score-skip {
+    color: #f87171;
+    background: rgba(248, 113, 113, 0.10);
+    border-color: rgba(248, 113, 113, 0.20);
+  }
+}
+
+@layer utilities {
+  /* Light: navy-to-blue gradient */
+  .text-gradient-snow {
+    background: linear-gradient(135deg, #1a3050, #1d6fa4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-ice {
+    background: linear-gradient(135deg, #0e5a8a, #1d8fc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Storm: white-to-sky */
+  .dark .text-gradient-snow {
+    background: linear-gradient(135deg, #ffffff, #bae6fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .dark .text-gradient-ice {
+    background: linear-gradient(135deg, #93c5fd, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-ice {
+    box-shadow: 0 0 20px rgba(125, 211, 252, 0.15), 0 0 40px rgba(125, 211, 252, 0.05);
+  }
+
+  .dark .glow-storm {
+    box-shadow: 0 0 24px rgba(59, 130, 246, 0.20), 0 0 48px rgba(59, 130, 246, 0.08);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}

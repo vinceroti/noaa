@@ -1,20 +1,25 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-export default function Header() {
-	const textShadow = '1px 3px 3px rgba(0, 0, 0, 0.5)';
+'use client';
 
-	return (
-		<header className="flex items-center justify-center p-5 text-white">
-			<FontAwesomeIcon
-				icon={['far', 'snowflake']}
-				size="3x"
-				className="mr-4 animate-spin-slow"
-			/>
-			<h1
-				className="text-4xl text-center m-0 font-semibold"
-				style={{ textShadow }}
-			>
-				NOAA Ski Tracker
-			</h1>
-		</header>
-	);
+import { faPersonSkiing } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import ThemeToggle from '@/components/ThemeToggle';
+
+export default function Header() {
+  return (
+    <header className="relative flex flex-col items-center pt-10 pb-6 px-4 select-none">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+      <div className="flex items-center gap-3 mb-2">
+        <FontAwesomeIcon icon={faPersonSkiing} className="text-sky-600 dark:text-sky-300 text-3xl w-8 h-8" />
+        <h1 className="text-3xl font-bold tracking-tight text-gradient-snow m-0">
+          Powder Tracker
+        </h1>
+      </div>
+      <p className="text-sm text-sky-700 dark:text-sky-300 tracking-widest uppercase font-medium">
+        NOAA · Live Conditions
+      </p>
+    </header>
+  );
 }
