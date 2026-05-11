@@ -32,10 +32,11 @@ export default function ResortSelector({ region, resorts, onResortsChange }: Pro
         <div className="flex gap-1.5 p-2 min-w-max">
           <button
             onClick={toggleAll}
+            aria-pressed={allSelected}
             className={`
               px-3 py-1.5 rounded-xl text-xs font-semibold tracking-wide transition-all duration-200
               ${allSelected
-                ? 'bg-sky-50 border border-sky-400/60 text-sky-700 dark:bg-white/15 dark:border-white/25 dark:text-white'
+                ? 'bg-sky-50 border border-sky-400/60 text-sky-700 dark:bg-sky-300/25 dark:border-sky-200/60 dark:text-white'
                 : 'border border-transparent text-slate-700 hover:text-sky-700 hover:bg-sky-50/80 dark:text-white/80 dark:hover:text-white dark:hover:bg-white/10'
               }
             `}

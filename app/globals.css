@@ -106,11 +106,27 @@
     border-color: rgba(220, 38, 38, 0.20);
   }
 
+  /* EPIC badges get a slow pulse to draw the eye */
+  .score-epic {
+    animation: epic-badge-pulse 2.8s ease-in-out infinite;
+  }
+
+  @keyframes epic-badge-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(4, 120, 87, 0.0); }
+    50% { box-shadow: 0 0 0 4px rgba(4, 120, 87, 0.10); }
+  }
+
   /* --- Score badges (storm) --- */
   .dark .score-epic {
     color: #6ee7b7;
     background: rgba(110, 231, 183, 0.12);
     border-color: rgba(110, 231, 183, 0.25);
+    animation: epic-badge-pulse-dark 2.8s ease-in-out infinite;
+  }
+
+  @keyframes epic-badge-pulse-dark {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.0); }
+    50% { box-shadow: 0 0 0 4px rgba(110, 231, 183, 0.18); }
   }
 
   .dark .score-great {
@@ -184,5 +200,45 @@
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  /* EPIC card: slow diagonal sheen sweep across the glass surface */
+  .epic-card {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .epic-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(186, 230, 253, 0.20) 50%,
+      transparent 70%
+    );
+    background-size: 250% 100%;
+    background-position: 200% 0;
+    animation: epic-sheen 5.5s ease-in-out infinite;
+    z-index: 1;
+  }
+
+  .dark .epic-card::after {
+    background: linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(186, 230, 253, 0.12) 50%,
+      transparent 70%
+    );
+    background-size: 250% 100%;
+    background-position: 200% 0;
+  }
+
+  @keyframes epic-sheen {
+    0%, 100% { background-position: 200% 0; }
+    50% { background-position: -100% 0; }
   }
 }

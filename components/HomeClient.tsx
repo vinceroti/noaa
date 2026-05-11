@@ -12,6 +12,7 @@ import { Mountain, States } from '@/config/enums/Mountains';
 import { StorageKeys } from '@/config/enums/storageKeys';
 import { MountainUrls } from '@/config/settings';
 import type { IWeatherData } from '@/interfaces/IWeather';
+import { computeSkiScore } from '@/utils/powderScore';
 
 interface ResortData {
   name: Mountain;
@@ -52,6 +53,17 @@ export default function HomeClient({ initialData, initialRegion, initialResorts 
     () => data.filter((d) => resorts.includes(d.name)),
     [data, resorts]
   );
+
+  const topPickName = useMemo<Mountain | null>(() => {
+    let best: { name: Mountain; total: number } | null = null;
+    for (const d of filteredData) {
+      const period = d.weatherData?.properties?.periods?.[0];
+      if (!period) continue;
+      const total = computeSkiScore(period).total;
+      if (!best || total > best.total) best = { name: d.name, total };
+    }
+    return best?.name ?? null;
+  }, [filteredData]);
 
   const handleRegionChange = async (newRegion: States) => {
     setRegion(newRegion);
@@ -114,6 +126,7 @@ export default function HomeClient({ initialData, initialRegion, initialResorts 
                   name={resort.name}
                   state={resort.state}
                   weatherData={resort.weatherData}
+                  isTopPick={resort.name === topPickName}
                 />
               </motion.div>
             ))}
