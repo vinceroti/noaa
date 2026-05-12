@@ -34,7 +34,7 @@ export default function ResortSelector({ region, resorts, onResortsChange }: Pro
             onClick={toggleAll}
             aria-pressed={allSelected}
             className={`
-              px-3 py-1.5 rounded-xl text-xs font-semibold tracking-wide transition-all duration-200
+              px-3 py-2.5 sm:py-1.5 rounded-xl text-xs font-semibold tracking-wide transition-all duration-200
               ${allSelected
                 ? 'bg-sky-50 border border-sky-400/60 text-sky-700' +
                   ' dark:bg-sky-300/25 dark:border-sky-200/60 dark:text-white'
@@ -52,7 +52,7 @@ export default function ResortSelector({ region, resorts, onResortsChange }: Pro
                 key={mountain}
                 onClick={() => toggle(mountain)}
                 className={`
-                  px-3 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 whitespace-nowrap
+                  px-3 py-2.5 sm:py-1.5 rounded-xl text-xs font-medium transition-all duration-200 whitespace-nowrap
                   ${active
                     ? 'bg-sky-50 border border-sky-400/60 text-sky-700' +
                       ' dark:bg-sky-400/20 dark:border-sky-400/40 dark:text-sky-100'

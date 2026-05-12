@@ -34,6 +34,7 @@
     min-height: 100dvh;
     font-family: var(--font-inter), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   :root.dark body {
@@ -63,16 +64,30 @@
     transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   }
 
-  .glass-hover:hover {
-    background: rgba(255, 255, 255, 0.80);
-    border-color: rgba(14, 100, 180, 0.30);
-    transform: translateY(-1px);
+  @media (hover: hover) {
+    .glass-hover:hover {
+      background: rgba(255, 255, 255, 0.80);
+      border-color: rgba(14, 100, 180, 0.30);
+      transform: translateY(-1px);
+    }
+
+    .dark .glass-hover:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(125, 211, 252, 0.22);
+      transform: translateY(-1px);
+    }
   }
 
-  .dark .glass-hover:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(125, 211, 252, 0.22);
-    transform: translateY(-1px);
+  .glass-hover:active {
+    background: rgba(255, 255, 255, 0.75);
+    border-color: rgba(14, 100, 180, 0.28);
+    transform: scale(0.995);
+  }
+
+  .dark .glass-hover:active {
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(125, 211, 252, 0.20);
+    transform: scale(0.995);
   }
 
   /* --- Score badges (light) --- */

@@ -83,7 +83,7 @@ export default function HomeClient({ initialData, initialRegion, initialResorts 
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto px-4 pb-8 relative z-10">
+    <div className="w-full max-w-lg mx-auto px-4 pb-[max(2rem,env(safe-area-inset-bottom))] relative z-10">
       {/* Selectors */}
       <div className="flex flex-col gap-3 mb-6">
         <RegionSelector region={region} onRegionChange={handleRegionChange} />

@@ -282,19 +282,11 @@ export default function ResortCard({ name, state, weatherData, isTopPick }: Prop
 							{firstPeriod.windSpeed} {firstPeriod.windDirection}
 						</span>
 					</div>
-					{spark.length >= 2 && (
-						<div className="ml-auto flex items-center gap-1.5" aria-label="5-day score trend">
-							<span className="text-[10px] text-slate-500 dark:text-white/60 uppercase tracking-wide">
-								5d
-							</span>
-							<Sparkline points={spark} />
-						</div>
-					)}
 				</div>
 			</div>
 
-			{/* Expand toggle */}
-			<div className="px-5 pb-3 flex items-center gap-1.5 text-xs text-slate-600 dark:text-white/80 font-medium">
+			{/* Expand toggle + sparkline */}
+			<div className="px-5 pb-4 flex items-center gap-2 text-xs text-slate-600 dark:text-white/80 font-medium">
 				<FontAwesomeIcon
 					icon={faChevronDown}
 					className={`w-2.5 h-2.5 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
@@ -302,6 +294,14 @@ export default function ResortCard({ name, state, weatherData, isTopPick }: Prop
 				<span>
 					{expanded ? 'Hide' : 'Show'} {periods.length}-period forecast
 				</span>
+				{spark.length >= 2 && (
+					<div className="ml-auto flex items-center gap-1.5" aria-label="5-day score trend">
+						<span className="text-[10px] text-slate-500 dark:text-white/60 uppercase tracking-wide">
+							5d
+						</span>
+						<Sparkline points={spark} />
+					</div>
+				)}
 			</div>
 
 			{/* Expanded forecast */}

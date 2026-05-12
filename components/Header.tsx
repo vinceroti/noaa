@@ -11,9 +11,12 @@ export default function Header() {
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
-      <div className="flex items-center gap-3 mb-2">
-        <FontAwesomeIcon icon={faPersonSkiing} className="text-sky-600 dark:text-sky-300 text-3xl w-8 h-8" />
-        <h1 className="text-3xl font-bold tracking-tight text-gradient-snow m-0">
+      <div className="flex items-center gap-2 sm:gap-3 mb-2 max-w-[calc(100%-3.5rem)] sm:max-w-none">
+        <FontAwesomeIcon
+          icon={faPersonSkiing}
+          className="text-sky-600 dark:text-sky-300 text-2xl sm:text-3xl w-7 h-7 sm:w-8 sm:h-8"
+        />
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-gradient-snow m-0">
           Powder Tracker
         </h1>
       </div>

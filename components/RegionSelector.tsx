@@ -32,7 +32,7 @@ export default function RegionSelector({ region, onRegionChange }: Props) {
 								key={state}
 								onClick={() => onRegionChange(state)}
 								className={`
-                  px-4 py-1.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200
+                  px-4 py-2.5 sm:py-1.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200
                   ${
 										active
 											? 'bg-sky-50 border border-sky-400/60 text-sky-700' +
