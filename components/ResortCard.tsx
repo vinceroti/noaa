@@ -190,7 +190,7 @@ export default function ResortCard({ name, state, weatherData, isTopPick }: Prop
 				{/* Resort name + score badge */}
 				<div className="flex items-start justify-between gap-3 mb-4">
 					<div className="min-w-0">
-						<div className="flex items-center gap-2 mb-0.5">
+						<div className="flex items-start gap-2 mb-0.5">
 							<h3 className="font-bold text-base text-slate-900 dark:text-white leading-tight">
 								{name}
 							</h3>
