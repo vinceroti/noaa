@@ -1,8 +1,13 @@
-const CACHE = 'powder-tracker-v1';
+const CACHE = 'powder-tracker-v2';
 const NOAA_CACHE = 'powder-noaa-v1';
+const PRECACHE = ['/', '/manifest.webmanifest', '/icon', '/icon2', '/apple-icon', '/favicon.ico'];
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(['/'])));
+  e.waitUntil(
+    caches
+      .open(CACHE)
+      .then((c) => Promise.all(PRECACHE.map((url) => c.add(url).catch(() => {}))))
+  );
   self.skipWaiting();
 });
 

@@ -25,11 +25,11 @@
 
   html {
     scroll-behavior: smooth;
+    background: var(--bg);
+    min-height: 100dvh;
   }
 
   body {
-    background: var(--bg);
-    background-attachment: fixed;
     color: #1a3050;
     min-height: 100dvh;
     font-family: var(--font-inter), system-ui, sans-serif;

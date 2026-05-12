@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: 'Powder Tracker',
   description: 'Real-time ski resort weather & powder day tracking powered by NOAA',
   manifest: '/manifest.webmanifest',
-  viewport: 'width=device-width, initial-scale=1',
+  viewport: 'width=device-width, initial-scale=1, viewport-fit=cover',
   themeColor: '#050d1a',
   appleWebApp: {
     capable: true,
