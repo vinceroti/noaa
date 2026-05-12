@@ -206,7 +206,10 @@ export default function ResortCard({ name, state, weatherData, isTopPick }: Prop
 						</span>
 					</div>
 					<span
-						className={`text-xs font-bold px-2.5 py-1 rounded-full border shrink-0 ${SCORE_CLASS[score.label]}`}
+						className={
+							'text-xs font-bold px-2.5 py-1 rounded-full border shrink-0 ' +
+							SCORE_CLASS[score.label]
+						}
 					>
 						{score.label} · {score.total}/100
 					</span>

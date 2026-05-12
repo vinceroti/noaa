@@ -90,26 +90,22 @@ export default function HomeClient({ initialData, initialRegion, initialResorts 
         <ResortSelector region={region} resorts={resorts} onResortsChange={handleResortsChange} />
       </div>
 
-      {/* Loading spinner */}
-      <AnimatePresence>
-        {loading && (
+      {/* Spinner OR cards — single presence so they never stack */}
+      <AnimatePresence mode="wait">
+        {loading ? (
           <motion.div
             key="spinner"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
             className="flex justify-center py-16"
           >
             <div className="w-10 h-10 border-2 border-sky-500/20 border-t-sky-500 dark:border-blue-400/20 dark:border-t-blue-400 rounded-full animate-spin" />
           </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Resort cards */}
-      <AnimatePresence mode="wait">
-        {!loading && (
+        ) : (
           <motion.div
-            key={region}
+            key={`cards-${region}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { staggerChildren: 0.07, delayChildren: 0.05 } }}
             exit={{ opacity: 0, transition: { duration: 0.15 } }}

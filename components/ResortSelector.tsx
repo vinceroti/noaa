@@ -36,8 +36,10 @@ export default function ResortSelector({ region, resorts, onResortsChange }: Pro
             className={`
               px-3 py-1.5 rounded-xl text-xs font-semibold tracking-wide transition-all duration-200
               ${allSelected
-                ? 'bg-sky-50 border border-sky-400/60 text-sky-700 dark:bg-sky-300/25 dark:border-sky-200/60 dark:text-white'
-                : 'border border-transparent text-slate-700 hover:text-sky-700 hover:bg-sky-50/80 dark:text-white/80 dark:hover:text-white dark:hover:bg-white/10'
+                ? 'bg-sky-50 border border-sky-400/60 text-sky-700' +
+                  ' dark:bg-sky-300/25 dark:border-sky-200/60 dark:text-white'
+                : 'border border-transparent text-slate-700 hover:text-sky-700 hover:bg-sky-50/80' +
+                  ' dark:text-white/80 dark:hover:text-white dark:hover:bg-white/10'
               }
             `}
           >
@@ -52,8 +54,10 @@ export default function ResortSelector({ region, resorts, onResortsChange }: Pro
                 className={`
                   px-3 py-1.5 rounded-xl text-xs font-medium transition-all duration-200 whitespace-nowrap
                   ${active
-                    ? 'bg-sky-50 border border-sky-400/60 text-sky-700 dark:bg-sky-400/20 dark:border-sky-400/40 dark:text-sky-100'
-                    : 'border border-transparent text-slate-700 hover:text-sky-700 hover:bg-sky-50/80 dark:text-white/80 dark:hover:text-white dark:hover:bg-white/10'
+                    ? 'bg-sky-50 border border-sky-400/60 text-sky-700' +
+                      ' dark:bg-sky-400/20 dark:border-sky-400/40 dark:text-sky-100'
+                    : 'border border-transparent text-slate-700 hover:text-sky-700 hover:bg-sky-50/80' +
+                      ' dark:text-white/80 dark:hover:text-white dark:hover:bg-white/10'
                   }
                 `}
               >

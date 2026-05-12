@@ -9,6 +9,7 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
 import SnowfallBackground from '@/components/SnowfallBackground';
+import { StorageKeys } from '@/config/enums/storageKeys';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -25,13 +26,22 @@ export const metadata: Metadata = {
   },
 };
 
+// Runs synchronously before paint to apply the dark class for users without a
+// theme cookie. With a cookie, the server already set the class on <html>.
+const themeBootstrap =
+  '(function(){try{' +
+  "var c=document.cookie.match(/(?:^|;\\s*)theme=([^;]*)/);" +
+  "var t=c?c[1]:(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');" +
+  "if(t==='dark')document.documentElement.classList.add('dark');" +
+  '}catch(e){}})();';
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const theme = cookies().get('theme')?.value;
-  const isDark = theme === 'dark';
+  const isDark = cookies().get(StorageKeys.Theme)?.value === 'dark';
 
   return (
     <html lang="en" className={`${inter.variable}${isDark ? ' dark' : ''}`} suppressHydrationWarning>
       <body className="min-h-dvh flex flex-col">
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
         <SnowfallBackground />
         <ServiceWorkerRegistration />
         <div className="relative z-10 flex flex-col min-h-dvh">

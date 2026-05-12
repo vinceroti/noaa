@@ -35,8 +35,11 @@ export default function RegionSelector({ region, onRegionChange }: Props) {
                   px-4 py-1.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200
                   ${
 										active
-											? 'bg-sky-50 border border-sky-400/60 text-sky-700 dark:bg-sky-400/20 dark:border-sky-400/40 dark:text-sky-100'
-											: 'border border-transparent text-slate-700 hover:text-sky-700 hover:bg-sky-50/80 dark:text-white/80 dark:hover:text-white dark:hover:bg-white/10'
+											? 'bg-sky-50 border border-sky-400/60 text-sky-700' +
+											  ' dark:bg-sky-400/20 dark:border-sky-400/40 dark:text-sky-100'
+											: 'border border-transparent text-slate-700' +
+											  ' hover:text-sky-700 hover:bg-sky-50/80' +
+											  ' dark:text-white/80 dark:hover:text-white dark:hover:bg-white/10'
 									}
                 `}
 							>
